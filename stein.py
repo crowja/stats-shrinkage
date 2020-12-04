@@ -4,7 +4,7 @@ import numpy as np
 
 
 def stein(x, n, rtol=np.finfo(float).eps):
-    """Stein's estimators of sample covariance eigenvalues."""
+    """Stein's adjustment of sample covariance eigenvalues."""
 
     """
     Compute adjusted eigenvalues of a sample covariance matrix using Stein's
@@ -18,13 +18,14 @@ def stein(x, n, rtol=np.finfo(float).eps):
     descending.
     
     ARGUMENTS
-    x     nonnegative eigenvalues sorted in descending order.
+    x     NumPy array of nonnegative eigenvalues sorted in descending order.
     n     number of samples.
-    rtol  relative tolerance for setting small eigenvalues to zero.
+    rtol  relative tolerance for setting small eigenvalues to zero. Defaults
+          to NumPy's machine epsilon for np.float.
 
     RETURNS
-    The call y = stein_isonitize(x, n, rtol) returns
-    y     adjusted eigenvalues.
+    The call y = stein_isonitize(x, n, rtol) returns:
+    y     adjusted eigenvalues for covariance estimation.
 
     John A. Crow <crowja@gmail.com>
     """
@@ -110,6 +111,7 @@ def stein(x, n, rtol=np.finfo(float).eps):
             y[j] = adjusts[i].val / adjusts[i].alpha
 
     return y
+
 
 if __name__ == "__main__":
 
