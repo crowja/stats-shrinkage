@@ -111,15 +111,14 @@ def stein(x, n, rtol=np.finfo(float).eps):
 
     return y
 
-
 if __name__ == "__main__":
 
     ##x = np.sort(np.random.rand(9))[::-1]
     ##x = np.array([0.83078802, 0.81182107, 0.75951461, 0.71773099, 0.22039148])
     """
-    Example from S. P. Lin and M. D. Perlman, "A monte carlo comparison of four
-    estimators of a covariance matrix," Technical Report 44, Department of
-    Statistics, University of Washington, April 1984.
+    Example from Shang P. Lin and Michael D. Perlman, "A monte carlo comparison
+    of four estimators of a covariance matrix," Technical Report 44, Department
+    of Statistics, University of Washington, April 1984.
     """
     n = 10
     x = np.array([50.91, 39.66, 14.96, 11.88, 8.55, 6.33, 2.40, 1.99, 0.52, 0.01])
