@@ -24,13 +24,13 @@ def stein(x, n, rtol=np.finfo(float).eps):
           to NumPy's machine epsilon for np.float.
 
     RETURNS
-    The call y = stein_isonitize(x, n, rtol) returns:
+    The call y = stein(x, n, rtol) returns:
     y     adjusted eigenvalues for covariance estimation.
 
     John A. Crow <crowja@gmail.com>
     """
 
-    class EigenvalueCorrection:
+    class EigenvalueAdjustment:
         def __init__(self):
             self.val = 0.0
             self.alpha = 0.0
@@ -39,7 +39,7 @@ def stein(x, n, rtol=np.finfo(float).eps):
 
     adjusts = []  # array of adjustments
     for i in range(len(x)):
-        evcorr = EigenvalueCorrection()
+        evcorr = EigenvalueAdjustment()
         evcorr.block_start = i
         evcorr.block_end = i
         adjusts.append(evcorr)
