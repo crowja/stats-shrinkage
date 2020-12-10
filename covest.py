@@ -3,6 +3,10 @@
 import numpy as np
 
 
+def daniels_kass(x, n, rtol=np.finfo(float).eps):
+    pass
+
+
 def stein(x, n, rtol=np.finfo(float).eps):
     """Stein's adjustment of sample covariance eigenvalues."""
 
