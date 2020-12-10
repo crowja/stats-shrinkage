@@ -80,7 +80,7 @@ def stein(x, n, rtol=np.finfo(float).eps):
             if i == j:
                 continue
             s += 1.0 / (x[i] - x[j])
-        adjusts[i].alpha = 0 * (n - rank) + 1 + 2 * x[i] * s  # TODO
+        adjusts[i].alpha = max(0, n - rank) + 1 + 2 * x[i] * s
 
     # ISOTONIZATION STEP 1: Coerce the alphas to be positive.
 
