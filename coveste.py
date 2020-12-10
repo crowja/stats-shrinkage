@@ -4,6 +4,13 @@ import numpy as np
 
 
 def daniels_kass(x, n, rtol=np.finfo(float).eps):
+    """Daniels-Kass' adjustment of sample covariance eigenvalues."""
+
+    """
+    Michael J. Daniels and Robert Kass. "Shrinkage estimators for covariance
+    matrices." Biometrics, 57(10):1173-1184, 2001.
+    """
+
     pass
 
 
@@ -20,6 +27,11 @@ def stein(x, n, rtol=np.finfo(float).eps):
     Initial weights for adjusting the eigenvalues are then subject to Stein's
     isotonization algorithm to ensure the final eigenvalues are positive and
     descending.
+
+    Shang P. Lin and Michael D. Perlman. "A Monte Carlo Comparison of Four
+    Estimators of a Covariance Matrix." Technical Report XX, Department of
+    Statistics, University of Washington, April 1984.
+
     
     ARGUMENTS
     x     NumPy array of nonnegative eigenvalues sorted in descending order.
@@ -32,6 +44,7 @@ def stein(x, n, rtol=np.finfo(float).eps):
     y     adjusted eigenvalues for covariance estimation.
 
     John A. Crow <crowja@gmail.com>
+
     """
 
     class EigenvalueAdjustment:
