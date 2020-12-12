@@ -9,9 +9,51 @@ def daniels_kass(x, n, rtol=np.finfo(float).eps):
     """
     Michael J. Daniels and Robert Kass. "Shrinkage estimators for covariance
     matrices." Biometrics, 57(10):1173-1184, 2001.
+    
+    ARGUMENTS
+    x     NumPy array of nonnegative eigenvalues sorted in descending order.
+    n     number of samples.
+    rtol  relative tolerance for setting small eigenvalues to zero. Defaults
+          to NumPy's machine epsilon for np.float.
+
+    RETURNS
+    The call y = coveste.daniels_kass(x, n, rtol) returns:
+    y     adjusted eigenvalues for covariance estimation.
+
+    John A. Crow <crowja@gmail.com>
     """
 
-    pass
+    # Get the effective rank, zero the small eigenvalues.
+    rank = 0
+    total_mass = x.sum()
+    cumul_mass = 0.0
+    for i in range(len(x)):
+        if np.isclose(cumul_mass, total_mass, rtol=rtol, atol=0.0):
+            break
+        rank += 1
+        cumul_mass += x[i]
+
+    # Model mean hyperparameter
+    mean_log_x = np.log(x[0:rank]) / rank
+
+    # Mode variance hyperparameter
+    s = 0
+    for i in range(rank):
+        t = np.log(x[i]) - mean_log_x
+        s += t * t
+    tau2 = s / (rank + 4.0) - 2.0 / n
+
+    # TODO ensure tau2 > 0
+
+    # Squeeze the eigenvectors
+    y = np.zeros_like(x)
+    a = (2.0 / n) / (2.0 / n + tau2)
+    b = tau2 / (2.0 / n + tau2)
+    for i in range(rank):
+        t = a * mean_log_x + b * np.log(x[i])
+        y[i] = np.exp(t)
+
+    return y
 
 
 def stein(x, n, rtol=np.finfo(float).eps):
@@ -40,7 +82,7 @@ def stein(x, n, rtol=np.finfo(float).eps):
           to NumPy's machine epsilon for np.float.
 
     RETURNS
-    The call y = stein(x, n, rtol) returns:
+    The call y = coveste.stein(x, n, rtol) returns:
     y     adjusted eigenvalues for covariance estimation.
 
     John A. Crow <crowja@gmail.com>
